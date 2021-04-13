@@ -1,0 +1,58 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+        <section>
+            <h3 class="font-bold text-2xl">Bienvenue</h3>
+            <p class="text-gray-600 pt-2">Créez un compte pour pouvoir créer des sugestions.</p>
+        </section>
+
+        <section class="mt-10">
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+
+            {{ form_start(registrationForm, {'attr': {'class': 'flex flex-col'}}) }}
+                <div class="mb-1 pt-1 rounded bg-gray-200">
+                    {{ form_label(registrationForm.fullName, "Nom complet",  {'label_attr': {'class': 'block text-gray-700 text-sm font-bold ml-3'}}) }}
+                    {{ form_widget(registrationForm.fullName, {'attr': {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-1'}}) }}
+                    <div class="form-error">
+                        {{ form_errors(registrationForm.fullName) }}
+                    </div>
+                </div>
+
+                <div class="mb-1 pt-1 rounded bg-gray-200">
+                    {{ form_label(registrationForm.email, "Email",  {'label_attr': {'class': 'block text-gray-700 text-sm font-bold ml-3'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-1'}}) }}
+                    <div class="form-error">
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+                </div>
+
+                <div class="mb-1 pt-1 rounded bg-gray-200">
+                    {{ form_label(registrationForm.plainPassword, "Password",  {'label_attr': {'class': 'block text-gray-700 text-sm font-bold ml-3'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-1'}}) }}
+                    <div class="form-error">
+                        {{ form_errors(registrationForm.plainPassword) }}
+                    </div>
+                </div>
+                <div class="mb-6 pt-1 rounded bg-gray-200">
+                    {{ form_label(registrationForm.agreeTerms, "Agree terms",  {'label_attr': {'class': 'block text-gray-700 text-sm font-bold ml-3'}}) }}
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'bg-gray-200 rounded ml-3 text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-1'}}) }}
+                    <div class="form-error">
+                        {{ form_errors(registrationForm.agreeTerms) }}
+                    </div>
+                </div>
+
+                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200">Register</button>
+            {{ form_end(registrationForm) }}
+        </section>
+    </main>
+
+    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+        <p class="text-white">Vous avez déjà de compte? <a href="/login" class="font-bold hover:underline">Se connecter</a>.</p>
+    </div>
+
+{% endblock %}
