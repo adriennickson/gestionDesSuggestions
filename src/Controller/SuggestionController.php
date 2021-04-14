@@ -36,6 +36,7 @@ class SuggestionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $suggestion->setDateDeCreation(new \DateTime('NOW'));
+            $suggestion->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($suggestion);
             $entityManager->flush();

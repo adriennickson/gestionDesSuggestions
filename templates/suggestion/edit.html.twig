@@ -3,11 +3,35 @@
 {% block title %}Edit Suggestion{% endblock %}
 
 {% block body %}
-    <h1>Edit Suggestion</h1>
+        <div id="main-content" class="w-full flex-1">
 
-    {{ include('suggestion/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="flex flex-wrap  justify-center">
 
-    <a href="{{ path('suggestion_index') }}">back to list</a>
+                <div class="w-full xl:w-2/3 p-6 xl:max-w-6xl">
 
-    {{ include('suggestion/_delete_form.html.twig') }}
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-full lg:max-w-3xl xl:max-w-5xl">
+
+                        <!--Table Card-->
+                        <div class="p-3">
+                            <div class="border-b p-3">
+                                <h1>Edit Suggestion</h1>
+                            </div>
+                            <div class="p-5">
+                                {{ include('suggestion/_form.html.twig', {'button_label': 'Update'}) }}
+
+                                <a href="{{ path('suggestion_index') }}" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 border border-blue-500 hover:border-transparent rounded">back to list</a>
+
+                                {{ include('suggestion/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                        <!--/table Card-->
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
 {% endblock %}

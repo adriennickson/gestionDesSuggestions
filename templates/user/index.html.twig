@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex flex-wrap  justify-center">
+
+                <div class="w-full xl:w-2/3 p-6 xl:max-w-6xl">
+
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-full lg:max-w-3xl xl:max-w-5xl">
+
+                        <!--Table Card-->
+                        <div class="p-3">
+                            <div class="border-b p-3">
+                                <h1>User index</h1>
+                            </div>
+                            <div class="p-5">
+
+                                <table class="table table-auto w-full">
+                                    <thead>
+                                        <tr class="bg-blue-200">
+                                            <th class="text-left">Id</th>
+                                            <th class="text-left">Email</th>
+                                            {# <th>Roles</th> #}
+                                            <th class="text-left">Full Name</th>
+                                            <th class="text-left">actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td>{{ user.id }}</td>
+                                            <td>{{ user.email }}</td>
+                                            {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
+                                            <td>{{ user.fullName }}</td>
+                                            <td>
+                                                <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <!--/table Card-->
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}

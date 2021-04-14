@@ -3,40 +3,63 @@
 {% block title %}Suggestion{% endblock %}
 
 {% block body %}
-    <h1>Suggestion</h1>
+        <div id="main-content" class="w-full flex-1">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ suggestion.id }}</td>
-            </tr>
-            <tr>
-                <th>DateDeCreation</th>
-                <td>{{ suggestion.dateDeCreation ? suggestion.dateDeCreation|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ suggestion.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ suggestion.description }}</td>
-            </tr>
-            <tr>
-                <th>Tags</th>
-                <td>
-                    {% for tag in suggestion.tag %}
-                        <span>{{ tag|e }}</span>
-                    {% endfor %}                                
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="flex flex-wrap  justify-center">
 
-    <a href="{{ path('suggestion_index') }}">back to list</a>
+                <div class="w-full xl:w-2/3 p-6 xl:max-w-6xl">
 
-    <a href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">edit</a>
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-full lg:max-w-3xl xl:max-w-5xl">
 
-    {{ include('suggestion/_delete_form.html.twig') }}
+                        <!--Table Card-->
+                        <div class="p-3">
+                            <div class="border-b p-3">
+                                <h1>Suggestion</h1>
+                            </div>
+                            <div class="p-5">
+                                <table class="table table-auto w-full">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-left">Id</th>
+                                            <td>{{ suggestion.id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">DateDeCreation</th>
+                                            <td>{{ suggestion.dateDeCreation ? suggestion.dateDeCreation|date('Y-m-d H:i:s') : '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">Titre</th>
+                                            <td>{{ suggestion.titre }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">Description</th>
+                                            <td>{{ suggestion.description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">Tags</th>
+                                            <td>
+                                                {% for tag in suggestion.tag %}
+                                                    <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ tag|e }}</span>
+                                                {% endfor %}                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <a href="{{ path('suggestion_index') }}" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 border border-blue-500 hover:border-transparent rounded">back to list</a>
+                                <a href="{{ path('suggestion_edit', {'id': suggestion.id}) }}"  class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 border border-blue-500 hover:border-transparent rounded">edit</a>
+
+
+                                {{ include('suggestion/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                        <!--/table Card-->
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
 {% endblock %}
