@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suggestion index{% endblock %}
+
+{% block body %}
+    <h1>Suggestion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateDeCreation</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Tags</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for suggestion in suggestions %}
+            <tr>
+                <td>{{ suggestion.id }}</td>
+                <td>{{ suggestion.dateDeCreation ? suggestion.dateDeCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ suggestion.titre }}</td>
+                <td>{{ suggestion.description }}</td>
+                <td>
+                    {% for tag in suggestion.tag %}
+                        <span>{{ tag|e }}</span>
+                    {% endfor %}                
+                </td>
+                <td>
+                    <a href="{{ path('suggestion_show', {'id': suggestion.id}) }}">show</a>
+                    <a href="{{ path('suggestion_edit', {'id': suggestion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('suggestion_new') }}">Create new</a>
+{% endblock %}

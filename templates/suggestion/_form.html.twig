@@ -1,0 +1,69 @@
+{{ form_start(form) }}
+    {{ form_row(form.titre) }}
+    {{ form_row(form.description) }}
+
+    <ul id="tags-list"
+        data-prototype="{{ form_widget(form.tag.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.tag|length }}">
+        {% for tag in form.tag %}
+            <li>
+                {{ form_errors(tag) }}
+                {{ form_widget(tag) }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <button type="button"
+        class="add-another-collection-widget"
+        data-list-selector="#tags-list">Add another tag</button>
+
+    {{ form_row(form.user) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+// add-collection-widget.js
+jQuery(document).ready(function () {
+    $collectionHolder = $('ul#tags-list');
+
+    // add a delete link to all of the existing tag form li elements
+    $collectionHolder.find('li').each(function() {
+        addTagFormDeleteLink($(this));
+    });
+
+    jQuery('.add-another-collection-widget').click(function (e) {
+        var list = jQuery(jQuery(this).attr('data-list-selector'));
+        // Try to find the counter of the list or use the length of the list
+        var counter = list.data('widget-counter') || list.children().length;
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your emails
+        // end name attribute looks like name="contact[emails][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+        // And store it, the length cannot be used if deleting widgets is allowed
+        list.data('widget-counter', counter);
+
+        // create a new list element and add it to the list
+        var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+        addTagFormDeleteLink(newElem);
+        newElem.appendTo(list);
+    });
+
+    function addTagFormDeleteLink(tagFormLi) {
+        console.log($(tagFormLi))
+        var $removeFormButton = $('<button type="button">Delete this tag</button>');
+        tagFormLi.append($removeFormButton);
+
+        $removeFormButton.on('click', function(e) {
+            // remove the li for the tag form
+            tagFormLi.remove();
+        });
+    }
+});
+</script>
